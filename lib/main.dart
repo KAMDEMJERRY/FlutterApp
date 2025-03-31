@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,7 +8,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MyHomePage(title: "Hello World demo app");
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: MyHomePage(title: 'Product layout demo home page'),
+    );
   }
 }
 
@@ -21,72 +23,95 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(25),
-      decoration:  BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Center(
-          child: Text(
-              'Hello World',
-              textDirection: TextDirection.ltr,
-              style: TextStyle(color: Colors.black,
-                      letterSpacing: 0.5,
-                      fontSize: 20,              
-              ),
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
+        children: [
+          ProductBox(
+                    name: "iPhone", 
+                    description: "iPhone is the stylist phone ever", 
+                    price: 1000,
+                    image: "iPhone.png",
           ),
+          ProductBox(
+                    name: "Pixel",
+                    description: "Pixel is the most featured phone ever",
+                    price: 1000, 
+                    image: "Pixel.png"
+          ),
+          ProductBox(
+            name: "Laptop",
+            description: "Laptop is most productive development tool",
+            price: 2000,
+            image: "Laptop.png"
+          ),
+          ProductBox(
+            name: "Tablet",
+            description: "Tablet is the most useful device ever for meeting",
+            price: 1500,
+            image: "Tablet.png"
+          ),
+          ProductBox(
+          name: "Pendrive",
+          description: "Pendrive is useful storage medium",
+          price: 100,
+          image: "Pendrive.png"),
+          ProductBox(
+          name: "Floppy Drive",
+          description: "Floppy drive is useful rescue storage medium",
+          price: 20,
+          image: "Floppy.png"),
+        ],
       ),
     );
   }
 }
 
-class MyButton extends StatelessWidget {
-  const MyButton({super.key});
+
+
+
+
+
+class ProductBox extends StatelessWidget {
+  const ProductBox({
+    super.key,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.image,
+  });
+
+  final String name;
+  final String description;
+  final int price;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(0.1)),
-        border: Border(
-          top: BorderSide(width: 1.0, color: Colors.deepOrange),
-          left: BorderSide(width: 1.0, color: Colors.deepOrange),
-          right: BorderSide(width: 1.0, color: Color.fromRGBO(1, 1, 1, 1)),
-          bottom: BorderSide(width: 1.0, color: Colors.deepOrange),
-        ),
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 2.0),
-        decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(10.0),
-          border: const Border(
-            top: BorderSide(width: 1.0, color: Color.fromARGB(0, 12, 175, 126)),
-            left: BorderSide(
-              width: 1.0,
-              color: Color.fromARGB(255, 233, 18, 18),
+      padding: EdgeInsets.all(2),
+      height: 120,
+      child: Card(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset("assets/appimages/$image"),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(description),
+                    Text("Price : $price"),
+                  ],
+                ),
+              ),
             ),
-            right: BorderSide(
-              width: 1.0,
-              color: Color.fromARGB(255, 34, 32, 168),
-            ),
-            bottom: BorderSide(
-              width: 1.0,
-              color: Color.fromARGB(255, 243, 227, 6),
-            ),
-          ),
-          color: Color.fromARGB(255, 221, 22, 105),
-        ),
-        child: Center(
-          child: Text(
-            'OK',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color.fromARGB(255, 20, 20, 20),
-              decoration: TextDecoration.none,
-            ),
-          ),
+          ], 
         ),
       ),
     );
