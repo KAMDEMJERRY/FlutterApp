@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:informel/product.dart';
 import 'package:informel/product_box.dart';
+import 'package:informel/product_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Product state demo home page'),
+      home: MyHomePage(title: 'Product Navigation demo home page'),
     );
   }
 }
@@ -27,11 +28,21 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('product Navigation')),
+      appBar: AppBar(title: Text(title)),
       body: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          return ProductBox(item: items[index]);
+          return GestureDetector(
+            child: ProductBox(item: items[index]),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductPage(item: items[index]),
+                ),
+              );
+            },
+          );
         },
       ),
     );
