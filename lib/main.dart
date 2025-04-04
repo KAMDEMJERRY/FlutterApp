@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import './product_box.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,9 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Product layout demo home page'),
+      home: MyHomePage(title: 'Product state demo home page'),
     );
-    
   }
 }
 
@@ -22,41 +24,65 @@ class MyHomePage extends StatelessWidget {
 
   final String title;
 
-  // user defined function
-  void _showDialog(BuildContext context) {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: Text("Message"),
-          content: Text("Hello World"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("Close"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            _showDialog(context);
-          },
-          child: Text('Hello World'),
-        ),
+      body: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
+          children: <Widget>[
+            ProductBox(
+              name: "iPhone",
+              description: "iPhone is the stylist phone ever",
+              price: 1000,
+              image: "iPhone.png"
+            ),
+            ProductBox(
+              name: "Pixel",
+              description: "Pixel is the most featureful phone ever",
+              price: 800,
+              image: "Pixel.png"
+            ),
+            ProductBox(
+              name: "Laptop",
+              description: "Laptop is most productive development tool",
+              price: 2000,
+              image: "Laptop.png"
+            ),
+            ProductBox(
+              name: "Tablet",
+              description: "Tablet is the most useful device ever formeeting",
+              price: 1500,
+              image: "Tablet.png"
+            ),
+            ProductBox(
+              name: "Pendrive",
+              description: "iPhone is the stylist phone ever",
+              price: 100,
+              image: "Pendrive.png"
+            ),
+            ProductBox(
+              name: "Floppy Drive",
+              description: "iPhone is the stylist phone ever",
+              price: 20,
+              image: "Floppy.png"
+            ),
+            ProductBox(
+              name: "iPhone",
+              description: "iPhone is the stylist phone ever",
+              price: 1000,
+              image: "iPhone.png"
+            ),
+            ProductBox(
+              name: "iPhone",
+              description: "iPhone is the stylist phone ever",
+              price: 1000,
+              image: "iPhone.png"
+            ),
+          ],
       ),
     );
   }
 }
+
