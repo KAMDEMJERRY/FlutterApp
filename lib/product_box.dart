@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:informel/product.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'rating_box.dart';
 
 class ProductBox extends StatelessWidget {
-  const ProductBox({
-    super.key,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.image,
-  });
+  const ProductBox({super.key, required this.item});
 
-  final String name;
-  final String description;
-  final int price;
-  final String image;
-
+  final Product item;
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +17,28 @@ class ProductBox extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Image.asset("assets/appimages/$image"),
+            Image.asset("assets/appimages/${item.image}"),
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(2),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      name,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(description),
-                    Text("Price: $price"),
-                    RatingBox(),
-                  ],
+                padding: EdgeInsets.all(5),
+                child: ScopedModel<Product>(
+                  model: item,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        item.name,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(item.description),
+                      Text("Price: ${item.price}"),
+                      ScopedModelDescendant<Product>(
+                        builder: (context, child, item) {
+                          return RatingBox(item: item);
+                        },
+                      ),
+                    ],
+                  )
                 ),
               ),
             ),

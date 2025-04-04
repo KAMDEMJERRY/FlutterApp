@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import './product_box.dart';
+import 'package:informel/product.dart';
+import 'package:informel/product_box.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,69 +19,21 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   final String title;
+  final items = Product.getProducts();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.fromLTRB(2.0, 10.0, 2.0, 10.0),
-          children: <Widget>[
-            ProductBox(
-              name: "iPhone",
-              description: "iPhone is the stylist phone ever",
-              price: 1000,
-              image: "iPhone.png"
-            ),
-            ProductBox(
-              name: "Pixel",
-              description: "Pixel is the most featureful phone ever",
-              price: 800,
-              image: "Pixel.png"
-            ),
-            ProductBox(
-              name: "Laptop",
-              description: "Laptop is most productive development tool",
-              price: 2000,
-              image: "Laptop.png"
-            ),
-            ProductBox(
-              name: "Tablet",
-              description: "Tablet is the most useful device ever formeeting",
-              price: 1500,
-              image: "Tablet.png"
-            ),
-            ProductBox(
-              name: "Pendrive",
-              description: "iPhone is the stylist phone ever",
-              price: 100,
-              image: "Pendrive.png"
-            ),
-            ProductBox(
-              name: "Floppy Drive",
-              description: "iPhone is the stylist phone ever",
-              price: 20,
-              image: "Floppy.png"
-            ),
-            ProductBox(
-              name: "iPhone",
-              description: "iPhone is the stylist phone ever",
-              price: 1000,
-              image: "iPhone.png"
-            ),
-            ProductBox(
-              name: "iPhone",
-              description: "iPhone is the stylist phone ever",
-              price: 1000,
-              image: "iPhone.png"
-            ),
-          ],
+      appBar: AppBar(title: Text('product Navigation')),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ProductBox(item: items[index]);
+        },
       ),
     );
   }
 }
-
